@@ -12,7 +12,7 @@ const Navbar = () => {
 
     </>
     return (
-        <div className="navbar bg-[#175f82]">
+        <div className="navbar max-w-screen-xl mx-auto bg-[#175f82] ">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -28,10 +28,11 @@ const Navbar = () => {
                         <img src={logo} /> 
                     </div>
                 </div>
-                <span className="text-lg font-bold ml-3 text-[#043242]">Dream Asset Hub</span>
+                <span className="text-lg font-bold ml-3 text-white">Dream Asset Hub</span>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
+                <ul className=" menu-horizontal gap-6 text-white uppercase font-bold
+                 px-1">
                     {navOptions}
                 </ul>
             </div>
