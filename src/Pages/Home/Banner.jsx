@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Banner = () => {
     return (
         <div>
-            <Carousel autoPlay={true} infiniteLoop={true}>
+            <Carousel autoPlay={true} infiniteLoop={true} interval={3000} transitionTime={500}>
                 <div>
                     <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://i.ibb.co/1fVKtM4/banner01.jpg)' }}>
                         <div className="hero-overlay bg-opacity-60"></div>
