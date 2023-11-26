@@ -4,14 +4,17 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../ContextApi/AuthProvider";
 import { signInWithPopup } from "firebase/auth";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 
 
 
 
 const LogIn = () => {
+    const axiosPublic = useAxiosPublic()
+
     const navigate = useNavigate()
-    const { signIn, auth, provider } = useContext(AuthContext)
+    const { signIn, auth, provider, } = useContext(AuthContext)
 
 
     const handleGoogleSignin = () => {
@@ -19,6 +22,12 @@ const LogIn = () => {
             .then(result => {
                 const user = result.user
                 console.log(user)
+                const userInfo={
+                    email: user.email,
+                    name: user.displayName,
+                    photoURL: user.photoURL,
+                }
+                axiosPublic.post('/users', userInfo)
                 Swal.fire({
                     title: 'Success!',
                     text: 'Logged in successfully',
@@ -32,6 +41,12 @@ const LogIn = () => {
             })
             .catch(error => {
                 console.error(error)
+                Swal.fire({
+                    title: 'Error!',
+                    text: error.message,
+                    icon: "error",
+                    confirmButtonText: 'Okay'
+                })
             })
 
     }
@@ -58,6 +73,15 @@ const LogIn = () => {
                 e.target.reset()
 
                 navigate('/')
+            })
+            .catch(error => {
+                console.error(error)
+                Swal.fire({
+                    title: 'Error!',
+                    text: error.message,
+                    icon: "error",
+                    confirmButtonText: 'Okay'
+                })
             })
     };
 
@@ -88,6 +112,7 @@ const LogIn = () => {
 
                                     </div>
                                     <div className="form-control mt-6">
+                                        
                                         <button value=" login" type=' submit' className="btn text-white bg-[#175f82]">Login</button>
                                     </div>
                                     <br />
