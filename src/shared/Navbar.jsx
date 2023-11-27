@@ -1,50 +1,23 @@
 import { NavLink } from "react-router-dom";
 import logo from '../assets/logo/logo.jpeg'
 import ThemeToggle from "./Themetoggle";
-import { useContext } from "react";
-import { AuthContext } from "../ContextApi/AuthProvider";
-import useAxiosPublic from "../hooks/useAxiosPublic";
-import { useQuery } from "@tanstack/react-query";
+
 
 
 const Navbar = () => {
     
-    const { user,logOut } = useContext(AuthContext)
-   const handleLogout =() =>{
-        logOut()
-        .then(()=>{})
-        .catch(error => console.log(error))
-    }
-    const axiosPublic = useAxiosPublic();
-    const {data: currentUser = [] } = useQuery({
-        queryKey: ['currentUser',user?.email,], 
-        queryFn: async() =>{
-            const res = await axiosPublic.get(`/users/${user?.email}`);
-            return res.data;
-            
-        }
-        
-    })
-    console.log("server database:",currentUser)
     
-
+    
+ 
 
     const navOptions = 
     <>
        <li><NavLink to="/">home</NavLink></li>
        <li><NavLink to="/joinEmployee">Join as Employee</NavLink></li>
        <li><NavLink to="/joinAdmin">Join as Admin</NavLink></li>
-       {
-         user?  <> 
-                   <button onClick={handleLogout} className="btn text-white bg-[#175f82]">Logout</button>
-               </>
-
-         : 
-         <>
-         <li><NavLink to="/logIn">Login</NavLink>
-         </li></>
-         
-       }
+       <li><NavLink to="/logIn">Login</NavLink>
+         </li>
+       
        
 
     </>
@@ -71,7 +44,7 @@ const Navbar = () => {
                 <ul className=" menu-horizontal gap-6 text-white uppercase font-bold
                  px-1">
                     {navOptions}
-                   {user&& <p>{user.email}</p>}  
+                    
                 </ul>
             </div>
             <div className="navbar-end">

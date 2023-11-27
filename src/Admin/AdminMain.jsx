@@ -1,10 +1,12 @@
-import { Outlet } from "react-router-dom";
+
+import AdminNavbar from "./AdminNavbar";
 
 
 const AdminMain = () => {
     return (
         <div>
-            <Outlet></Outlet>
+            <AdminNavbar></AdminNavbar>
+            
         </div>
     );
 };

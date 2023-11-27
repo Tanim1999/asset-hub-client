@@ -15,13 +15,15 @@ import AddAnEmployee from "./Admin/AddAnEmployee";
 
 import AllRequest from "./Admin/AllRequest";
 import AssetList from "./Admin/AssetList";
-import EmployeeMain from "./Employee/EmployeeMain";
+
 import EmployeeHome from "./Employee/EmployeeHome";
 import EmployeeMyAssets from "./Employee/EmployeeMyAssets";
 import EmployeeMyTeam from "./Employee/EmployeeMyTeam";
 import EmployeeProfile from "./Employee/EmployeeProfile";
 import MakeCustomRequest from "./Employee/MakeCustomRequest";
 import RequestForAnAsset from "./Employee/RequestForAnAsset";
+import MyEmployeeList from "./Admin/MyEmployeeList";
+import CustomRequestList from "./Admin/CustomRequestList";
 
 
   export const router = createBrowserRouter([
@@ -48,7 +50,7 @@ import RequestForAnAsset from "./Employee/RequestForAnAsset";
       ]
     },
     {
-      path: 'admin',
+      path: 'dashboard',
       element: <PrivateRoute><AdminMain></AdminMain></PrivateRoute>,
       children: [
         // normal user routes
@@ -59,6 +61,10 @@ import RequestForAnAsset from "./Employee/RequestForAnAsset";
         {
           path: 'addAnAsset',
           element: <AddAnAsset></AddAnAsset>
+        },
+        {
+          path: 'myEmployee',
+          element: <MyEmployeeList></MyEmployeeList>
         },
         {
           path: 'addAnEmployee',
@@ -73,13 +79,11 @@ import RequestForAnAsset from "./Employee/RequestForAnAsset";
           path: 'assetList',
           element: <AssetList></AssetList>
         },
-      ]
-
-    },
-    {
-      path: 'employee',
-      element: <PrivateRoute><EmployeeMain></EmployeeMain></PrivateRoute>,
-      children: [
+        {
+          path: 'customReq',
+          element: <CustomRequestList></CustomRequestList>
+        },
+        // employee routes
         
         {
           path: 'employeeHome',
@@ -107,5 +111,6 @@ import RequestForAnAsset from "./Employee/RequestForAnAsset";
         },
       ]
 
-    }
+    },
+    
   ]);

@@ -5,6 +5,8 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../../ContextApi/AuthProvider";
 import { signInWithPopup } from "firebase/auth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useUser from "../../hooks/useUser";
+// import useAdmin from "../../hooks/useAdmin";
 
 
 
@@ -12,9 +14,13 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const LogIn = () => {
     const axiosPublic = useAxiosPublic()
+    const [databaseUser, refetch] = useUser()
+    console.log("Type of refetch:", typeof refetch, refetch)
+    // const [isAdmin]= useAdmin()
+
 
     const navigate = useNavigate()
-    const { signIn, auth, provider, } = useContext(AuthContext)
+    const { signIn, auth, provider} = useContext(AuthContext)
 
 
     const handleGoogleSignin = () => {
@@ -22,7 +28,7 @@ const LogIn = () => {
             .then(result => {
                 const user = result.user
                 console.log(user)
-                const userInfo={
+                const userInfo = {
                     email: user.email,
                     name: user.displayName,
                     photoURL: user.photoURL,
@@ -34,8 +40,16 @@ const LogIn = () => {
                     icon: 'success',
                     confirmButtonText: 'Okay'
                 })
+                //  console.log(isAdmin)
+                // if (isSuccess==true && databaseUser[0].role=='admin'){
+                //     navigate("/admin/adminHome")
+                // }
+                // if(isPending==true){
+                //      setLoading(true)
+                // }
 
-                navigate('/')
+                // navigate("/admin/adminHome"): navigate("/employee/employeeHome")
+
 
 
             })
@@ -70,9 +84,13 @@ const LogIn = () => {
                     icon: 'success',
                     confirmButtonText: 'Okay'
                 })
-                e.target.reset()
 
-                navigate('/')
+                refetch()
+                e.target.reset()
+                console.log("Shala user late kno asos?", databaseUser)
+                navigate('/dashboard')
+                
+
             })
             .catch(error => {
                 console.error(error)
@@ -83,6 +101,7 @@ const LogIn = () => {
                     confirmButtonText: 'Okay'
                 })
             })
+            
     };
 
 
@@ -112,7 +131,7 @@ const LogIn = () => {
 
                                     </div>
                                     <div className="form-control mt-6">
-                                        
+
                                         <button value=" login" type=' submit' className="btn text-white bg-[#175f82]">Login</button>
                                     </div>
                                     <br />

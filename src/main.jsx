@@ -8,7 +8,10 @@ import {
 import { router } from './routes.jsx';
 import { HelmetProvider } from 'react-helmet-async';
 import AuthProvider from './ContextApi/AuthProvider.jsx';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 
 const queryClient = new QueryClient();
 
