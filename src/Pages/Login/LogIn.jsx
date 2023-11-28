@@ -88,7 +88,7 @@ const LogIn = () => {
                 refetch()
                 e.target.reset()
                 console.log("Shala user late kno asos?", databaseUser)
-                navigate('/dashboard')
+                navigate('/dashboard/home')
                 
 
             })

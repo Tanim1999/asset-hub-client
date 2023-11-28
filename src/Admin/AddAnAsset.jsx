@@ -21,7 +21,7 @@ const AddAnAsset = () => {
         console.log(data)
         
         
-            // now send the menu item data to the server with the image url
+            // now send the asset item data to the server with the image url
             const assetItem = {
                 productNAme: data.productName,
                 productType: data.productType,
@@ -71,7 +71,7 @@ const AddAnAsset = () => {
                                         <label className="label">
                                             <span className="label-text text-white font-bold">Product type</span>
                                         </label>
-                                        <select id="package" {...register("productQuantity", { required: true })} className=" select select-bordered w-full">
+                                        <select id="package" {...register("productType", { required: true })} className=" select select-bordered w-full">
                                         <option value="1">Returnable</option>
                                         <option value="2">Non-returnable</option>
                                     

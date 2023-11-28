@@ -9,14 +9,14 @@ import JoinEmployee from "./Pages/Home/Join/joinEmployee";
 import LogIn from "./Pages/Login/LogIn";
 import PrivateRoute from "./Routes/PrivateRoute";
 import AdminMain from "./Admin/AdminMain";
-import AdminHome from "./Admin/AdminHome";
+import DashboardHome from "./Admin/DashboardHome";
 import AddAnAsset from "./Admin/AddAnAsset";
 import AddAnEmployee from "./Admin/AddAnEmployee";
 
 import AllRequest from "./Admin/AllRequest";
 import AssetList from "./Admin/AssetList";
 
-import EmployeeHome from "./Employee/EmployeeHome";
+
 import EmployeeMyAssets from "./Employee/EmployeeMyAssets";
 import EmployeeMyTeam from "./Employee/EmployeeMyTeam";
 import EmployeeProfile from "./Employee/EmployeeProfile";
@@ -53,10 +53,10 @@ import CustomRequestList from "./Admin/CustomRequestList";
       path: 'dashboard',
       element: <PrivateRoute><AdminMain></AdminMain></PrivateRoute>,
       children: [
-        // normal user routes
+        // Admin user routes
         {
-          path: 'adminHome',
-          element: <AdminHome></AdminHome>
+          path: 'home',
+          element: <DashboardHome></DashboardHome>
         },
         {
           path: 'addAnAsset',
@@ -85,10 +85,7 @@ import CustomRequestList from "./Admin/CustomRequestList";
         },
         // employee routes
         
-        {
-          path: 'employeeHome',
-          element: <EmployeeHome></EmployeeHome>
-        },
+        
         {
           path: 'myAssets',
           element: <EmployeeMyAssets></EmployeeMyAssets>

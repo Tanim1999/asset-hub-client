@@ -44,7 +44,7 @@ const JoinAdmin = () => {
         const userInfo = {
             name: data.name,
             companyName: data.companyName,
-            companyLogo: res.data.data.display_url, // Assuming `res` is defined somewhere
+            companyLogo: res.data.data.display_url, 
             email: data.email,
             birthDay: data.bday,
             role: "admin"
