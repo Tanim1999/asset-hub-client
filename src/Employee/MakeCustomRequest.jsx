@@ -83,7 +83,7 @@ const MakeCustomRequest = () => {
                                         <label className="label">
                                             <span className="label-text text-white font-bold">Asset Name</span>
                                         </label>
-                                        <input type="text" {...register("AssetName", { required: true })} placeholder="Product Name" className="input input-bordered" required />
+                                        <input type="text" {...register("AssetName", { required: true })} placeholder="Asset name" className="input input-bordered" required />
                                         {errors.name && <span>This field is required</span>}
 
                                     </div>
@@ -102,7 +102,7 @@ const MakeCustomRequest = () => {
                                         <label className="label">
                                             <span className="label-text text-white font-bold">Asset type</span>
                                         </label>
-                                        <select id="package" {...register("assetType", { required: true })} className=" select select-bordered w-full">
+                                        <select required id="package" {...register("assetType", { required: true })} className=" select select-bordered w-full">
                                             <option value="1">Returnable</option>
                                             <option value="2">Non-returnable</option>
 
@@ -114,7 +114,7 @@ const MakeCustomRequest = () => {
                                         <label className="label">
                                             <span className="label-text text-white font-bold">Asset image</span>
                                         </label>
-                                        <input type="file" {...register('image', { required: true })} placeholder="Asset image" className="file-input file-input-bordered file-input-info w-full max-w-xs" />
+                                        <input required type="file" {...register('image', { required: true })} placeholder="Asset image" className="file-input file-input-bordered file-input-info w-full max-w-xs" />
                                         {errors.name && <span>This field is required</span>}
 
                                     </div>
@@ -123,7 +123,7 @@ const MakeCustomRequest = () => {
                                     <label className="label">
                                             <span className="label-text text-white font-bold">Why you need this</span>
                                         </label>
-                                        <textarea name="reason" {...register("reason", { required: true })}
+                                        <textarea required name="reason" {...register("reason", { required: true })}
                                             className="textarea textarea-info" placeholder="Your reason...">
                                             {errors.reason && <span>This field is required</span>}
                                         </textarea>
@@ -133,8 +133,8 @@ const MakeCustomRequest = () => {
                                     <label className="label">
                                             <span className="label-text text-white font-bold">Additional information </span>
                                         </label>
-                                        <textarea name="reason" {...register("info", { required: true })}
-                                            className="textarea textarea-info" placeholder="Your reason...">
+                                        <textarea required name="reason" {...register("info", { required: true })}
+                                            className="textarea textarea-info" placeholder="Additional info">
                                             {errors.reason && <span>This field is required</span>}
                                         </textarea>
 

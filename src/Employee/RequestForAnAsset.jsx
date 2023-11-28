@@ -1,87 +1,88 @@
-import { useForm } from "react-hook-form";
-import useAssets from "../hooks/useAssets";
-import Swal from "sweetalert2";
-import useAxiosPublic from "../hooks/useAxiosPublic";
-import useAuth from "../hooks/useAuth";
-
-
+import { useState } from 'react';
+import Modal from 'react-modal';
+import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
+import useAssets from '../hooks/useAssets';
+import useAxiosPublic from '../hooks/useAxiosPublic';
+import useAuth from '../hooks/useAuth';
 
 const RequestForAnAsset = () => {
-    const [assets] = useAssets()
-    const { user } = useAuth()
-    console.log("yo mama", assets)
+    const [assets] = useAssets();
+    const { user } = useAuth();
+    const axiosPublic = useAxiosPublic()
+    const [selectedAsset, setSelectedAsset] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+
 
     const {
         register,
         handleSubmit,
         reset,
         formState: { errors },
-        
+    } = useForm();
 
-    } = useForm()
-
-
-
-    const onSubmit = async (data) => {
-        
-        try{
-            console.log("bla bla", data)
-
-
-
-
-            // now send the asset item data to the server with the image url
-            const assetItem = {
-                AssetName: data.productName,
-                AssetType: data.productType,
-                EmailOfRequester: user.email,
-                NameOfRequester: user.displayName,
-                RequestDate: user.metadata.lastSignInTime,
-                AdditionalNote: data.reason
-    
-    
-    
-            }
-            console.log("assetItem", assetItem)
-            // 
-            const request = await useAxiosPublic.post('/requests', assetItem);
-            console.log("sha lala la", request.data)
-            if (request.data.insertedId) {
-                // show success popup
-                reset()
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: `${data.name} Request successful.`,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-    
-            }
-        }
-        
-        
-         catch (error) {
-            console.error("Error submitting form:", error);
-          }
-
+    const openModal = (asset) => {
+        setSelectedAsset(asset);
+        setIsModalOpen(true);
     };
 
+    const closeModal = () => {
+        setSelectedAsset(null);
+        setIsModalOpen(false);
+        reset();
+    };
 
+    const onSubmit = async (data) => {
+        try {
+            
+            if (selectedAsset.quantity <= 0) {
+    
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Asset is out of stock',
+                    text: 'Sorry, the selected asset is currently out of stock.',
+                });
+                closeModal();
+                return;
+            }
 
+            const assetItem = {
+                AssetName: selectedAsset.productName,
+                AssetType: selectedAsset.productType,
+                EmailOfRequester: user.email,
+                NameOfRequester: user.displayName,
+                RequestDate: new Date().toISOString(), 
+                AdditionalNote: data.reason,
+            };
 
+            
+            const request = await axiosPublic.post('/requests', assetItem);
+
+            if (request.data.insertedId) {
+                
+                Swal.fire({
+                    icon: 'success',
+                    title: `${selectedAsset.productName} request successful.`,
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                closeModal();
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            
+        }
+    };
 
     return (
         <div>
-            <h2>Request for an asset</h2>
+            <h2 className='text-3xl text-[#175f82] font-bold text-center my-5'>Request for an asset</h2>
             <div className="overflow-x-auto">
-                <table className="table   w-full">
-                    {/* head */}
-                    <thead>
+                <table className="table w-full">
+                    <thead className='bg-[#175f82] text-white'>
                         <tr>
-                            <th>
-                                #
-                            </th>
+                            <th>#</th>
                             <th>Asset name</th>
                             <th>Asset Type</th>
                             <th>Availability</th>
@@ -89,82 +90,94 @@ const RequestForAnAsset = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            assets.map((item, index) => <tr key={item._id}>
+                        {assets.map((item, index) => (
+                            <tr key={item._id}>
+                                <th>{index + 1}</th>
+                                <td>{item.productNAme}</td>
+                                <td>{item.productType}</td>
+                                <td>{item.quantity > 0 ? 'Available' : 'Out of stock'}</td>
                                 <th>
-                                    {index + 1}
+                                    <button
+                                        className="btn"
+                                        onClick={() => item.quantity > 0 && openModal(item)}
+                                        disabled={item.quantity <= 0}
+                                    >
+                                        Request
+                                    </button>
                                 </th>
-
-                                <td>
-                                    {item.productNAme}
-                                </td>
-                                <td>
-                                    {item.productType}
-                                </td>
-                                {
-                                    item.quantity > 0 ?
-                                        <>
-                                            <td>
-
-                                                Available
-
-                                            </td>
-                                        </>
-                                        :
-                                        <>
-                                            <td>Out of stock</td>
-                                        </>
-
-                                }
-
-                                <td>
-                                    {/* Open the modal using document.getElementById('ID').showModal() method */}
-                                    <button  className="btn" onClick={() => document.getElementById(item._id).showModal()}>Request</button>
-                                    <dialog id= {item._id} className="modal">
-                                        <div className="modal-box">
-                                            <h3 className="font-bold text-lg">Why you need this {item.name}?</h3>
-                                            <form onSubmit={handleSubmit(onSubmit)}>
-                                                <div className="form-control">
-                                                    <input name="productName" {...register("productName")} readOnly defaultValue={item.productNAme} />
-                                                </div>
-                                                <div className="form-control">
-                                                    <input name="productType" {...register("productType")} readOnly defaultValue={item.productType} />
-                                                </div>
-                                                <div className="form-control">
-                                                    <textarea name="reason" {...register("reason", { required: true })}
-                                                        className="textarea textarea-info" placeholder="Your reason...">
-                                                        {errors.reason && <span>This field is required</span>}
-                                                    </textarea>
-
-                                                </div>
-                                                <div className=" form-control">
-                                                    <button key={item._id} type="submit" className="btn text-white bg-[#175f82]">Request</button>
-                                                </div>
-
-
-
-
-
-                                            </form>
-
-                                            <div className="modal-action">
-                                                <form method="dialog">
-                                                    {/* if there is a button in form, it will close the modal */}
-
-                                                    <button className="btn">Close</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </dialog>
-
-                                </td>
-                            </tr>)
-                        }
-
-
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
+
+    
+            <Modal
+                isOpen={isModalOpen}
+                onRequestClose={closeModal}
+                contentLabel="Request Asset Modal"
+                shouldCloseOnOverlayClick={true}
+                ariaHideApp={false}
+                onAfterClose={() => {
+                    setSelectedAsset(null);
+                    reset();
+                }}
+            >
+                <h3 className="font-bold text-lg">Why do you need this asset?</h3>
+                 <div className='card flex-shrink-0  border-[2px] shadow-none '>
+                 <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text text-[#175f82] font-bold">Product name</span>
+                        </label>
+                        <input
+                            name="productName"
+                            {...register('productName')}
+                            readOnly
+                            defaultValue={selectedAsset?.productNAme}
+                        />
+                    </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text text-[#175f82] font-bold">Product Type</span>
+                        </label>
+                        <input
+                            name="productType"
+                            {...register('productType')}
+                            readOnly
+                            defaultValue={selectedAsset?.productType}
+                        />
+                    </div>
+                    <div className="form-control my-5">
+                    <label className="label">
+                            <span className="label-text text-[#175f82] font-bold">Reason</span>
+                        </label>
+                        <textarea
+                            name="reason"
+                            {...register('reason', { required: true })}
+                            className="textarea textarea-info"
+                            placeholder="Your reason..."
+                            required
+                        >
+                            {errors.reason && <span>This field is required</span>}
+                        </textarea>
+                    </div>
+                    <div className='flex w-full items-center justify-center '>
+                        <div className=" flex-1 ">
+                            <button type="submit" className="btn w-1/2 text-white bg-[#175f82]">
+                                Request
+                            </button>
+                        </div>
+                        <div className=" flex-1">
+                            <button className="btn w-1/2 text-white bg-[#175f82]" onClick={closeModal}>
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                 </div>
+
+            </Modal>
         </div>
     );
 };

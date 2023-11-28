@@ -71,7 +71,7 @@ const AddAnAsset = () => {
                                         <label className="label">
                                             <span className="label-text text-white font-bold">Product type</span>
                                         </label>
-                                        <select id="package" {...register("productType", { required: true })} className=" select select-bordered w-full">
+                                        <select required id="package" {...register("productType", { required: true })} className=" select select-bordered w-full">
                                         <option value="1">Returnable</option>
                                         <option value="2">Non-returnable</option>
                                     
@@ -83,7 +83,7 @@ const AddAnAsset = () => {
                                         <label className="label">
                                             <span className="label-text text-white font-bold">Product quantity</span>
                                         </label>
-                                        <input type="number" {...register('productQuantity', { required: true })} placeholder="Product quantity" className="file-input file-input-bordered file-input-info w-full max-w-xs" />
+                                        <input required type="number" {...register('productQuantity', { required: true })} placeholder="Product quantity" className="file-input file-input-bordered file-input-info w-full max-w-xs" />
                                         {errors.name && <span>This field is required</span>}
 
                                     </div>
