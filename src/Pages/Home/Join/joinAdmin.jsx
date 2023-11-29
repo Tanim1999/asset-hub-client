@@ -142,10 +142,10 @@ return (
                                     <label className="label">
                                         <span className="label-text text-white font-bold">Select a package</span>
                                     </label>
-                                    <select id="package" {...register("package", { required: true })} className=" select select-bordered w-full">
-                                        <option value="1">5 Members for $5</option>
-                                        <option value="2">10 Members for $8</option>
-                                        <option value="3">20 Members for $15</option>
+                                    <select required id="package" {...register("package", { required: true })} className=" select select-bordered w-full">
+                                        <option value="5">5 Members for $5</option>
+                                        <option value="8">10 Members for $8</option>
+                                        <option value="15">20 Members for $15</option>
                                     </select>
                                 </div>
                                 <div className="form-control mt-6">

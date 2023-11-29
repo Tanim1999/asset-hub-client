@@ -32,6 +32,8 @@ const LogIn = () => {
                     email: user.email,
                     name: user.displayName,
                     photoURL: user.photoURL,
+                    companyName:"none",
+                    role:"employee"
                 }
                 axiosPublic.post('/users', userInfo)
                 Swal.fire({
@@ -40,15 +42,7 @@ const LogIn = () => {
                     icon: 'success',
                     confirmButtonText: 'Okay'
                 })
-                //  console.log(isAdmin)
-                // if (isSuccess==true && databaseUser[0].role=='admin'){
-                //     navigate("/admin/adminHome")
-                // }
-                // if(isPending==true){
-                //      setLoading(true)
-                // }
-
-                // navigate("/admin/adminHome"): navigate("/employee/employeeHome")
+                
 
 
 

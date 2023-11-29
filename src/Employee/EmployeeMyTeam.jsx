@@ -1,9 +1,10 @@
+import UpcomingEvents from "../components/upComingEvents";
 
 
 const EmployeeMyTeam = () => {
     return (
         <div>
-            my team
+            <UpcomingEvents></UpcomingEvents>
         </div>
     );
 };

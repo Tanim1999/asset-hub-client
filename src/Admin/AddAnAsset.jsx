@@ -21,7 +21,7 @@ const AddAnAsset = () => {
         console.log(data)
         
         
-            // now send the asset item data to the server with the image url
+            
             const assetItem = {
                 productNAme: data.productName,
                 productType: data.productType,
@@ -29,11 +29,11 @@ const AddAnAsset = () => {
             
                 
             }
-            // 
+             
             const asset = await axiosPublic.post('/assets', assetItem);
             console.log(asset.data)
             if (asset.data.insertedId) {
-                // show success popup
+                
                 reset()
                 Swal.fire({
                     position: "top-end",
@@ -72,8 +72,8 @@ const AddAnAsset = () => {
                                             <span className="label-text text-white font-bold">Product type</span>
                                         </label>
                                         <select required id="package" {...register("productType", { required: true })} className=" select select-bordered w-full">
-                                        <option value="1">Returnable</option>
-                                        <option value="2">Non-returnable</option>
+                                        <option value="Returnable">Returnable</option>
+                                        <option value="Non-returnable">Non-returnable</option>
                                     
                                         </select>
                                         {errors.name && <span>This field is required</span>}

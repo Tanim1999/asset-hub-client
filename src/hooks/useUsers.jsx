@@ -9,9 +9,10 @@ const useUsers = () => {
         queryFn: async() =>{
             const res = await axiosPublic.get('/users');
             return res.data;
+            
         }
     })
-    return [users, loading, refetch]
+    return [users,loading, refetch]
 
 };
 

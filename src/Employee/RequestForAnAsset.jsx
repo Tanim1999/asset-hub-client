@@ -36,16 +36,7 @@ const RequestForAnAsset = () => {
     const onSubmit = async (data) => {
         try {
             
-            if (selectedAsset.quantity <= 0) {
-    
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Asset is out of stock',
-                    text: 'Sorry, the selected asset is currently out of stock.',
-                });
-                closeModal();
-                return;
-            }
+            
 
             const assetItem = {
                 AssetName: selectedAsset.productName,

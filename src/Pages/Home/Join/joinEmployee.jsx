@@ -33,7 +33,8 @@ const JoinEmployee = () => {
                     name: data.name,
                     email: data.email,
                     birthDay: data.bday,
-                    role : "employee"
+                    role : "employee",
+                    companyName:"none"
 
                 }
                 axiosPublic.post('/users', userInfo)

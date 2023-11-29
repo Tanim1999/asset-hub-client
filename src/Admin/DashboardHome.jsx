@@ -9,7 +9,7 @@ const DashboardHome = () => {
                 databaseUser?.role==="admin"? 
                 <>
                 
-                   <p> admin home</p>
+                   <p> {databaseUser.name} Welcome back </p>
                 
                 </> 
                 

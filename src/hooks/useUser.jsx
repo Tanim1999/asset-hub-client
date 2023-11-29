@@ -11,7 +11,7 @@ const useUser = () => {
     const axiosPublic = useAxiosPublic();
     
     console.log('User email:', user?.email);
-    console.log('abal user email:',user?.user?.email)
+
 
     const {data: databaseUser = [],refetch, isPending} = useQuery({
         queryKey: ['databaseUser',user?.email], 
@@ -26,7 +26,7 @@ const useUser = () => {
     })
     
     
-    isPending&& console.log('shonar chele oad hoy')
+    isPending&& console.log('loading')
     
     return [databaseUser,refetch]
 
