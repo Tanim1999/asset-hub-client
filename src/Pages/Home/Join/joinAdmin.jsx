@@ -62,7 +62,7 @@ const JoinAdmin = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
-            navigate('/');
+            navigate('/logIn');
         } else {
             throw new Error('Failed to add user to the database');
         }

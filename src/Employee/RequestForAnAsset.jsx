@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import useAssets from '../hooks/useAssets';
 import useAxiosPublic from '../hooks/useAxiosPublic';
 import useAuth from '../hooks/useAuth';
+import useUser from '../hooks/useUser';
 
 const RequestForAnAsset = () => {
     const [assets] = useAssets();
@@ -12,6 +13,7 @@ const RequestForAnAsset = () => {
     const axiosPublic = useAxiosPublic()
     const [selectedAsset, setSelectedAsset] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [databaseUser]= useUser()
 
 
 
@@ -32,6 +34,7 @@ const RequestForAnAsset = () => {
         setIsModalOpen(false);
         reset();
     };
+    console.log(assets)
 
     const onSubmit = async (data) => {
         try {
@@ -68,7 +71,12 @@ const RequestForAnAsset = () => {
 
     return (
         <div>
-            <h2 className='text-3xl text-[#175f82] font-bold text-center my-5'>Request for an asset</h2>
+            {databaseUser.companyName==="none" ? <><p className="font-bold mx-auto p-5 w-[80%] text-3xl rounded-lg border-2 border-[#175f82]">You are not in any team. Please ask your admin to make you a team member</p>
+             
+             </>
+             :
+             <>
+             <h2 className='text-3xl text-[#175f82] font-bold text-center my-5'>Request for an asset</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     <thead className='bg-[#175f82] text-white'>
@@ -169,6 +177,9 @@ const RequestForAnAsset = () => {
                  </div>
 
             </Modal>
+             </>
+             }
+            
         </div>
     );
 };

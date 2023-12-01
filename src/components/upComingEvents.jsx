@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react';
-import useUsers from '../hooks/useUsers';
+
 import { FaUser } from 'react-icons/fa';
+import useTeamMembers from '../hooks/useTeamMembers';
 
 
 const UpcomingEvents = () => {
-  const [users] = useUsers(); 
-  console.log("zigzag",users)
+  const [teamMembers] = useTeamMembers(); 
+  console.log("zigzag",teamMembers)
 
   const [upcomingBirthdays, setUpcomingBirthdays] = useState([]);
 
   useEffect(() => {
-    if (users) {
+    if (teamMembers) {
       
       const currentMonth = new Date().getMonth() + 1; 
-      const upcomingBirthdaysData = users.filter((user) => {
+      const upcomingBirthdaysData = teamMembers.filter((user) => {
         const userBirthMonth = new Date(user.birthDay).getMonth() + 1;
         return userBirthMonth === currentMonth;
       });
@@ -40,7 +41,7 @@ const UpcomingEvents = () => {
 
       setUpcomingBirthdays(updatedData);
     }
-  }, [users]);
+  }, [teamMembers]);
 
   return (
     <div>

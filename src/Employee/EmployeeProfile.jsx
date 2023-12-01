@@ -128,7 +128,7 @@ const EmployeeProfile = () => {
                                         <label className="label">
                                             <span className="label-text text-white font-bold">Profile picture</span>
                                         </label>
-                                        <input type="file" defaultValue={databaseUser.photoURL} {...register('image', { required: true })} placeholder="Asset image" className="file-input file-input-bordered file-input-info w-full max-w-xs" />
+                                        <input type="file" required  {...register('image', { required: true })} placeholder="Asset image" className="file-input file-input-bordered file-input-info w-full max-w-xs" />
                                         {errors.name && <span>This field is required</span>}
 
                                     </div>

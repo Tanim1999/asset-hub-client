@@ -1,21 +1,30 @@
 /* eslint-disable react/prop-types */
-import useAdmin from "../hooks/useAdmin";
+
+import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import useUser from "../hooks/useUser";
+
+
 
 const AdminRoute = ({ children }) => {
     const { user, loading } = useAuth();
-    const [isAdmin, isAdminLoading] = useAdmin();
-    // const location = useLocation();
+    const[databaseUser,,isPending]=useUser();
+    
+    const location = useLocation();
 
-    if (loading || isAdminLoading) {
+    if (loading || isPending) {
         return <progress className="progress w-56"></progress>
+        
     }
 
-    if (user && isAdmin) {
+    if (user && databaseUser.role==="admin") {
+        
         return children;
+        
     }
 
-    // return <Navigate to="/" state={{ from: location }} replace></Navigate>
+    return <Navigate to="/dashboard/home" state={{ from: location }} replace></Navigate>
 
 };
+
 export default AdminRoute;

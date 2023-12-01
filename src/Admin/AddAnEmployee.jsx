@@ -6,13 +6,15 @@ import useUser from "../hooks/useUser";
 import useNotInATeam from "../hooks/useNotInATeam";
 import { FaUser } from "react-icons/fa";
 
+import { GrUserAdmin } from "react-icons/gr";
+
 
 
 
 const AddAnEmployee = () => {
     const [notInATeam, refetch] = useNotInATeam()
     const [databaseUser] = useUser()
-    console.log(notInATeam)
+    console.log()
 
     const axiosPublic = useAxiosPublic()
 
@@ -46,34 +48,7 @@ const AddAnEmployee = () => {
         }
     }
 
-    const handleMakeAdmin = async (data) => {
-
-        const userInfo = {
-            name: data.name,
-            birthDay: data.birthDay,
-            role: "admin",
-            companyName: data.companyName,
-            photoURL: data.photoURL
-
-
-
-        }
-        const member = await axiosPublic.patch(`/users/${data.email}`, userInfo)
-        if (member.data.modifiedCount > 0) {
-            console.log('user updated in the database')
-            refetch()
-
-
-            // Swal.fire({
-            //     position: 'top-end',
-            //     icon: 'success',
-            //     title: `${data.name} role set to admin`,
-            //     showConfirmButton: false,
-            //     timer: 1500
-            // });
-
-        }
-    }
+    
 
 
 
@@ -82,34 +57,7 @@ const AddAnEmployee = () => {
 
 
 
-    const handleMakeEmployee = async (data) => {
-
-        const userInfo = {
-            name: data.name,
-            birthDay: data.birthDay,
-            role: "employee",
-            companyName: data.companyName,
-            photoURL: data.photoURL
-
-
-
-        }
-        const member = await axiosPublic.patch(`/users/${data.email}`, userInfo)
-        if (member.data.modifiedCount > 0) {
-
-            refetch()
-
-
-            // Swal.fire({
-            //     position: 'top-end',
-            //     icon: 'success',
-            //     title: `${data.name} role is now employee`,
-            //     showConfirmButton: false,
-            //     timer: 1500
-            // });
-
-        }
-    }
+    
 
 
 
@@ -145,14 +93,14 @@ const AddAnEmployee = () => {
                                     {
                                         employee.role === "admin" ?
                                             <>
-                                                <button onClick={() => handleMakeEmployee(employee)} className="btn-sm hover:bg-slate-400">
-                                                    admin
+                                                <button  className="btn-sm hover:bg-slate-400">
+                                                    <GrUserAdmin></GrUserAdmin>
                                                 </button>
 
                                             </>
                                             :
                                             <>
-                                                <button onClick={() => handleMakeAdmin(employee)} className="btn-sm hover:bg-slate-400">employee</button>
+                                                <button  className="btn-sm hover:bg-slate-400"><FaUser></FaUser></button>
                                             </>
                                     }
 

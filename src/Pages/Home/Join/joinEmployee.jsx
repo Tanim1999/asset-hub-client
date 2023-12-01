@@ -49,7 +49,7 @@ const JoinEmployee = () => {
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            navigate('/');
+                            navigate('/logIn');
                         }
                     })
                     .catch(error => {

@@ -3,14 +3,15 @@ import ThemeToggle from "../shared/Themetoggle";
 import useUser from "../hooks/useUser";
 import { AuthContext } from "../ContextApi/AuthProvider";
 import { useContext } from "react";
+import { FaUser } from "react-icons/fa";
 
 
 
 const AdminNavbar = () => {
-    
-    
+
+
     const [databaseUser] = useUser()
-    console.log("server data user role",databaseUser, databaseUser?.role)
+    console.log("server data user role", databaseUser, databaseUser?.role)
     const { logOut } = useContext(AuthContext)
     const handleLogout = () => {
         logOut()
@@ -18,8 +19,8 @@ const AdminNavbar = () => {
             .catch(error => console.log(error))
     }
     const navOptions =
-        databaseUser?.role==="admin"?
-        // user?.user?.email === "tomhunk@gmail.com" ?
+        databaseUser?.role === "admin" ?
+            // user?.user?.email === "tomhunk@gmail.com" ?
             <>
                 <li><NavLink to="/dashboard/home">home</NavLink></li>
                 <li><NavLink to="/dashboard/myEmployee">My Employee List</NavLink></li>
@@ -34,7 +35,7 @@ const AdminNavbar = () => {
                         <ThemeToggle>
                         </ThemeToggle>
                     </div>
-                   
+
                 </li>
                 <li>
                     <button onClick={handleLogout} className="btn text-white bg-[#175f82]">Logout</button>
@@ -70,6 +71,18 @@ const AdminNavbar = () => {
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
                 <ul className="menu p-4 w-80 min-h-full bg-[#175f82] font-bold uppercase  text-white">
+                    <div className="flex items-center gap-3 my-5" >
+                        <div className="mask mask-squircle w-12 h-12">
+                            {databaseUser?.photoURL?<><img src={databaseUser.photoURL} /></>
+                            :
+                            <>
+                            <div className="mask mask-squircle w-12 h-12 text-2xl text-center">
+                                <FaUser className="w-full h-full"></FaUser>
+                            </div>
+                            </>}
+                        </div>
+                        <div className="font-bold">{databaseUser?.name}</div>
+                    </div>
                     {navOptions}
 
                 </ul>

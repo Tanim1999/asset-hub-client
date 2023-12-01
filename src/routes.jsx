@@ -24,6 +24,8 @@ import MakeCustomRequest from "./Employee/MakeCustomRequest";
 import RequestForAnAsset from "./Employee/RequestForAnAsset";
 import MyEmployeeList from "./Admin/MyEmployeeList";
 import CustomRequestList from "./Admin/CustomRequestList";
+import UpdateAsset from "./Admin/UpdateAsset";
+import AdminRoute from "./Routes/AdminRoute";
 
 
   export const router = createBrowserRouter([
@@ -63,8 +65,14 @@ import CustomRequestList from "./Admin/CustomRequestList";
           element: <AddAnAsset></AddAnAsset>
         },
         {
+          path: 'updateAsset/:id',
+          element: <UpdateAsset></UpdateAsset>,
+          loader: ({params}) => fetch(`https://dream-asset-hub-server.vercel.app/assets/${params.id}`)
+        },
+
+        {
           path: 'myEmployee',
-          element: <MyEmployeeList></MyEmployeeList>
+          element: <AdminRoute><MyEmployeeList></MyEmployeeList></AdminRoute>
         },
         {
           path: 'addAnEmployee',

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import useAuth from "../hooks/useAuth";
+import useUser from "../hooks/useUser";
 
 
 const MakeCustomRequest = () => {
@@ -10,6 +11,7 @@ const MakeCustomRequest = () => {
     const axiosPublic = useAxiosPublic()
     const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
     const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+    const [databaseUser]= useUser()
 
     
     const {
@@ -68,8 +70,13 @@ const MakeCustomRequest = () => {
     };
 
     return (
-        <div className=" min-h-screen mx-auto">
-            <Helmet><title>Make customReq</title></Helmet>
+        <div className="  mx-auto">
+            {databaseUser.companyName==="none" ? <><p className="font-bold mx-auto p-5 w-[80%] text-3xl rounded-lg border-2 border-[#175f82]">You are not in any team. Please ask your admin to make you a team member</p>
+             
+             </>
+             :
+             <>
+             <Helmet><title>Make customReq</title></Helmet>
             <div>
                 <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://i.ibb.co/tcd4KVH/login.jpg)' }}>
                     <div className="hero-content flex-col lg:flex-row">
@@ -160,6 +167,10 @@ const MakeCustomRequest = () => {
                     </div>
                 </div>
             </div>
+             </>
+             }
+
+            
 
         </div>
     );
