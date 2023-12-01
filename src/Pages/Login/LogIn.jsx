@@ -14,7 +14,7 @@ import useUser from "../../hooks/useUser";
 
 const LogIn = () => {
     const axiosPublic = useAxiosPublic()
-    const [databaseUser, refetch] = useUser()
+    const [ , refetch] = useUser()
     console.log("Type of refetch:", typeof refetch, refetch)
     // const [isAdmin]= useAdmin()
 
@@ -36,15 +36,20 @@ const LogIn = () => {
                     role:"employee"
                 }
                 axiosPublic.post('/users', userInfo)
+              
+                refetch()
                 Swal.fire({
                     title: 'Success!',
                     text: 'Logged in successfully',
                     icon: 'success',
                     confirmButtonText: 'Okay'
+                    
                 })
+               
+                
                 
 
-
+                    
 
             })
             .catch(error => {
@@ -71,6 +76,7 @@ const LogIn = () => {
         signIn(email, password)
 
             .then(result => {
+                refetch()
                 console.log(result.user)
                 Swal.fire({
                     title: 'Success!',
@@ -79,9 +85,9 @@ const LogIn = () => {
                     confirmButtonText: 'Okay'
                 })
 
-                refetch()
+               
                 e.target.reset()
-                console.log("Shala user late kno asos?", databaseUser)
+               
                 navigate('/dashboard/home')
                 
 

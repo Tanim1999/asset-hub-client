@@ -25,7 +25,7 @@ import RequestForAnAsset from "./Employee/RequestForAnAsset";
 import MyEmployeeList from "./Admin/MyEmployeeList";
 import CustomRequestList from "./Admin/CustomRequestList";
 import UpdateAsset from "./Admin/UpdateAsset";
-// import AdminRoute from "./Routes/AdminRoute";
+import AdminRoute from "./Routes/AdminRoute";
 import Payment from "./payment/Payment";
 
 
@@ -67,11 +67,11 @@ import Payment from "./payment/Payment";
         },
         {
           path: 'addAnAsset',
-          element: <AddAnAsset></AddAnAsset>
+          element: <AdminRoute><AddAnAsset></AddAnAsset></AdminRoute>
         },
         {
           path: 'updateAsset/:id',
-          element: <UpdateAsset></UpdateAsset>,
+          element: <AdminRoute><UpdateAsset></UpdateAsset></AdminRoute>,
           loader: ({params}) => fetch(`https://dream-asset-hub-server.vercel.app/assets/${params.id}`)
         },
 

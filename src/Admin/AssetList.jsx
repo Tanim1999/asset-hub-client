@@ -4,25 +4,30 @@ import { FaSearch } from "react-icons/fa";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import useUser from "../hooks/useUser";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
-// import useAssets from "../hooks/useAssets";
+
+import useAssets from "../hooks/useAssets";
 
 
 const AssetList = () => {
     const axiosPublic=useAxiosPublic()
     const [databaseUser]= useUser()
+    const [assets, ,refetch]= useAssets()
+    
+    
    
-    const[assets,setAssets]=useState([])
+    const[asset,setAsset]=useState([])
 
     const[search,setSearch]=useState('')
 
 
     useEffect( ()=>{
         axiosPublic.get(`/assets?companyName=${databaseUser.companyName}&search=${search}`)
-            .then(res=> setAssets(res.data))
+            .then(res=> setAsset(res.data))
             
-    },[search,databaseUser,axiosPublic])
-    console.log("data of assets",assets)
+    },[search,databaseUser,axiosPublic,assets])
+    console.log("data of assets",asset)
     
 
 
@@ -33,9 +38,33 @@ const AssetList = () => {
             setSearch(searchText)
         }
 
-       const handleDelete=(id)=>{
-        console.log(id)
-       }
+        const handleDelete = id => {
+            console.log(id)
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+    
+                    axiosPublic.delete(`/assets/${id}`)
+                        .then(res => {
+                            if (res.data.deletedCount > 0) {
+                                refetch();
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your file has been deleted.",
+                                    icon: "success"
+                                });
+                            }
+                        })
+                }
+            });
+        }
 
      
 
@@ -64,7 +93,7 @@ const AssetList = () => {
                         </tr>
                     </thead>
                     <tbody className="text-center">
-                        {assets.map((item, index) => (
+                        {asset.map((item, index) => (
                             <tr key={item._id}>
                                 <th>{index + 1}</th>
                                 <td>{item.productNAme}</td>
