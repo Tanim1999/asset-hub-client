@@ -5,7 +5,7 @@ import useAxiosPublic from "./useAxiosPublic";
 const useNotInATeam = () => {
     const axiosPublic = useAxiosPublic();
     const {data: notInATeam = [],  refetch} = useQuery({
-        queryKey: ['employees'], 
+        queryKey: ['notInATeam'], 
         queryFn: async() =>{
             const res = await axiosPublic.get('/users?companyName=none');
             return res.data;

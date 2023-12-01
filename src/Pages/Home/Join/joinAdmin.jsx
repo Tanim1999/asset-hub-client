@@ -37,17 +37,18 @@ const JoinAdmin = () => {
         const loggedUser = authResult.user;
         console.log("Logged user information", loggedUser);
 
-        // Step 2: Update user profile
+        
         await updateUserProfile(data.name);
 
-        // Step 3: Create user entry in the database
+        //  Creating user entry in the database
         const userInfo = {
             name: data.name,
             companyName: data.companyName,
             companyLogo: res.data.data.display_url, 
             email: data.email,
             birthDay: data.bday,
-            role: "admin"
+            role: "admin",
+            package: data.package
         };
 
         const dbResponse = await axiosPublic.post('/users', userInfo);
@@ -62,7 +63,7 @@ const JoinAdmin = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
-            navigate('/logIn');
+            navigate('/dashboard/payment');
         } else {
             throw new Error('Failed to add user to the database');
         }

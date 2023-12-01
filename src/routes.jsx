@@ -25,7 +25,8 @@ import RequestForAnAsset from "./Employee/RequestForAnAsset";
 import MyEmployeeList from "./Admin/MyEmployeeList";
 import CustomRequestList from "./Admin/CustomRequestList";
 import UpdateAsset from "./Admin/UpdateAsset";
-import AdminRoute from "./Routes/AdminRoute";
+// import AdminRoute from "./Routes/AdminRoute";
+import Payment from "./payment/Payment";
 
 
   export const router = createBrowserRouter([
@@ -61,6 +62,10 @@ import AdminRoute from "./Routes/AdminRoute";
           element: <DashboardHome></DashboardHome>
         },
         {
+          path: 'payment',
+          element: <Payment></Payment>
+        },
+        {
           path: 'addAnAsset',
           element: <AddAnAsset></AddAnAsset>
         },
@@ -72,7 +77,7 @@ import AdminRoute from "./Routes/AdminRoute";
 
         {
           path: 'myEmployee',
-          element: <AdminRoute><MyEmployeeList></MyEmployeeList></AdminRoute>
+          element: <MyEmployeeList></MyEmployeeList>
         },
         {
           path: 'addAnEmployee',

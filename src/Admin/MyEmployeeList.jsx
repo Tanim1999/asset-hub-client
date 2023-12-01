@@ -6,9 +6,9 @@ import { FaUser } from "react-icons/fa";
 
 const MyEmployeeList = () => {
 
-    const [teamMembers, refetch] = useTeamMembers()
+    const [teamMembers, redone] = useTeamMembers()
 
-    console.log(teamMembers)
+    console.log("meet my team",teamMembers)
 
     const axiosPublic = useAxiosPublic()
 
@@ -18,7 +18,7 @@ const MyEmployeeList = () => {
         const userInfo = {
             name: data.name,
             birthDay: data.birthDay,
-            role: data.role,
+            role: "employee",
             companyName: "none",
             photoURL: data.photoURL
 
@@ -40,7 +40,7 @@ const MyEmployeeList = () => {
                 const member = await axiosPublic.patch(`/users/${data.email}`, userInfo)
                 if (member.data.modifiedCount > 0) {
                     console.log('user updated in the database')
-                    refetch()
+                    redone()
 
 
                     Swal.fire({
@@ -76,7 +76,7 @@ const MyEmployeeList = () => {
         const member = await axiosPublic.patch(`/users/${data.email}`, userInfo)
         if (member.data.modifiedCount > 0) {
             console.log('user updated in the database')
-            refetch()
+            redone()
 
 
             // Swal.fire({
@@ -93,38 +93,6 @@ const MyEmployeeList = () => {
 
 
 
-
-
-
-
-    const handleMakeEmployee = async (data) => {
-
-        const userInfo = {
-            name: data.name,
-            birthDay: data.birthDay,
-            role: "employee",
-            companyName: data.companyName,
-            photoURL: data.photoURL
-
-
-
-        }
-        const member = await axiosPublic.patch(`/users/${data.email}`, userInfo)
-        if (member.data.modifiedCount > 0) {
-
-            refetch()
-
-
-            // Swal.fire({
-            //     position: 'top-end',
-            //     icon: 'success',
-            //     title: `${data.name} role is now employee`,
-            //     showConfirmButton: false,
-            //     timer: 1500
-            // });
-
-        }
-    }
 
 
 
@@ -159,9 +127,9 @@ const MyEmployeeList = () => {
                                     {
                                         employee.role === "admin" ?
                                             <>
-                                                <button onClick={() => handleMakeEmployee(employee)} className="btn-sm hover:bg-slate-400">
+                                                <p>
                                                     admin
-                                                </button>
+                                                </p>
 
                                             </>
                                             :
@@ -176,6 +144,7 @@ const MyEmployeeList = () => {
                                     <button
                                         className="btn"
                                         onClick={() => handleRemove(employee)}
+                                        disabled={employee.role === "admin"}
 
                                     >
                                         Remove
