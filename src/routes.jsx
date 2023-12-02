@@ -27,6 +27,9 @@ import CustomRequestList from "./Admin/CustomRequestList";
 import UpdateAsset from "./Admin/UpdateAsset";
 import AdminRoute from "./Routes/AdminRoute";
 import Payment from "./payment/Payment";
+import AdminProfile from "./Admin/adminProfile";
+
+
 
 
   export const router = createBrowserRouter([
@@ -63,7 +66,7 @@ import Payment from "./payment/Payment";
         },
         {
           path: 'payment',
-          element: <Payment></Payment>
+          element: <AdminRoute><Payment></Payment></AdminRoute>
         },
         {
           path: 'addAnAsset',
@@ -77,24 +80,28 @@ import Payment from "./payment/Payment";
 
         {
           path: 'myEmployee',
-          element: <MyEmployeeList></MyEmployeeList>
+          element: <AdminRoute><MyEmployeeList></MyEmployeeList></AdminRoute>
         },
         {
           path: 'addAnEmployee',
-          element: <AddAnEmployee></AddAnEmployee>
+          element: <AdminRoute><AddAnEmployee></AddAnEmployee></AdminRoute>
         },
         
         {
           path: 'allRequest',
-          element: <AllRequest></AllRequest>
+          element: <AdminRoute><AllRequest></AllRequest></AdminRoute>
         },
         {
           path: 'assetList',
-          element: <AssetList></AssetList>
+          element: <AdminRoute><AssetList></AssetList></AdminRoute>
         },
         {
           path: 'customReq',
-          element: <CustomRequestList></CustomRequestList>
+          element: <AdminRoute><CustomRequestList></CustomRequestList></AdminRoute>
+        },
+        {
+          path: 'adminProfile',
+          element: <AdminRoute><AdminProfile></AdminProfile></AdminRoute>
         },
         // employee routes
         

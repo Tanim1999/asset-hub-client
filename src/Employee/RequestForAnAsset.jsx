@@ -42,22 +42,24 @@ const RequestForAnAsset = () => {
             
 
             const assetItem = {
-                AssetName: selectedAsset.productName,
-                AssetType: selectedAsset.productType,
-                EmailOfRequester: user.email,
-                NameOfRequester: user.displayName,
-                RequestDate: new Date().toISOString(), 
-                AdditionalNote: data.reason,
+                assetName: data.productName,
+                assetType: data.productType,
+                emailOfRequester: user.email,
+                nameOfRequester: user.displayName,
+                requestDate: new Date().toISOString(), 
+                additionalNote: data.reason,
+                companyName: databaseUser.companyName,
+                status: "pending"
             };
 
             
             const request = await axiosPublic.post('/requests', assetItem);
 
             if (request.data.insertedId) {
-                
+                console.log("ki req korle?",request)
                 Swal.fire({
                     icon: 'success',
-                    title: `${selectedAsset.productName} request successful.`,
+                    title: `${data.productName} request successful`,
                     showConfirmButton: false,
                     timer: 1500,
                 });

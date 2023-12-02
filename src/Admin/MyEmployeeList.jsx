@@ -69,25 +69,41 @@ const MyEmployeeList = () => {
             role: "admin",
             companyName: data.companyName,
             photoURL: data.photoURL
+            
 
 
 
         }
-        const member = await axiosPublic.patch(`/users/${data.email}`, userInfo)
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes,make admin"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+
+                const member = await axiosPublic.patch(`/users/${data.email}`, userInfo)
         if (member.data.modifiedCount > 0) {
             console.log('user updated in the database')
             redone()
 
 
-            // Swal.fire({
-            //     position: 'top-end',
-            //     icon: 'success',
-            //     title: `${data.name} role set to admin`,
-            //     showConfirmButton: false,
-            //     timer: 1500
-            // });
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: `${data.name} role set to admin`,
+                showConfirmButton: false,
+                timer: 1500
+            });
 
         }
+            }
+        });
+        
     }
 
 

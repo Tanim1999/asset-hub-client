@@ -10,7 +10,7 @@ import useUser from "../hooks/useUser";
 
 
 
-const EmployeeProfile = () => {
+const AdminProfile = () => {
     const { updateUserProfile, user } = useContext(AuthContext)
     const axiosPublic = useAxiosPublic()
     const [databaseUser, refetch] = useUser()
@@ -155,4 +155,4 @@ const EmployeeProfile = () => {
     );
 };
 
-export default EmployeeProfile;
+export default AdminProfile;
