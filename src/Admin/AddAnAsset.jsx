@@ -15,50 +15,50 @@ const AddAnAsset = () => {
 
     } = useForm()
 
-    const [databaseUser]=useUser()
+    const [databaseUser] = useUser()
 
 
-    const axiosPublic= useAxiosPublic()
+    const axiosPublic = useAxiosPublic()
 
     const onSubmit = async (data) => {
         console.log(data)
-        
-        
-            
-            const assetItem = {
-                productNAme: data.productName,
-                productType: data.productType,
-                quantity: parseInt(data.productQuantity),
-                companyName: databaseUser.companyName,
-                addedDate: new Date().toISOString(),
 
 
-            
-                
-            }
-             
-            const asset = await axiosPublic.post('/assets', assetItem);
-            console.log(asset.data)
-            if (asset.data.insertedId) {
-                
-                reset()
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: `${data.productName} is added successfully.`,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            
+
+        const assetItem = {
+            productNAme: data.productName,
+            productType: data.productType,
+            quantity: parseInt(data.productQuantity),
+            companyName: databaseUser.companyName,
+            addedDate: new Date().toISOString(),
+
+
+
+
         }
-    
+
+        const asset = await axiosPublic.post('/assets', assetItem);
+        console.log(asset.data)
+        if (asset.data.insertedId) {
+
+            reset()
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `${data.productName} is added successfully.`,
+                showConfirmButton: false,
+                timer: 1500
+            });
+
+        }
+
     };
 
     return (
         <div className=" min-h-screen mx-auto">
             <Helmet><title>add asset</title></Helmet>
             <div>
-                <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://i.ibb.co/tcd4KVH/login.jpg)' }}>
+                <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://i.ibb.co/3dX8LzF/9bc4cac0-d695-4c1c-94e7-93d54c4f40a5.jpg)' }}>
                     <div className="hero-content flex-col lg:flex-row">
 
                         <form onSubmit={handleSubmit(onSubmit)} >
@@ -79,9 +79,9 @@ const AddAnAsset = () => {
                                             <span className="label-text text-white font-bold">Product type</span>
                                         </label>
                                         <select required id="package" {...register("productType", { required: true })} className=" select select-bordered w-full">
-                                        <option value="Returnable">Returnable</option>
-                                        <option value="Non-returnable">Non-returnable</option>
-                                    
+                                            <option value="Returnable">Returnable</option>
+                                            <option value="Non-returnable">Non-returnable</option>
+
                                         </select>
                                         {errors.name && <span>This field is required</span>}
 
@@ -94,7 +94,7 @@ const AddAnAsset = () => {
                                         {errors.name && <span>This field is required</span>}
 
                                     </div>
-                                   
+
 
 
                                     <div className="form-control mt-6">

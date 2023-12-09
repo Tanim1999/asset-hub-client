@@ -24,6 +24,7 @@ const AddAnEmployee = () => {
     const navigate= useNavigate()
 
 
+    console.log("Tomar payments")
     
     const {
         register,
@@ -38,6 +39,8 @@ const AddAnEmployee = () => {
         const limit = payments.reduce((packages, item) => packages + item.package, 0)
         setMemberLimit(limit)
     }, [payments])
+   console.log("tomar member limit",memberLimit)
+
 
     const axiosPublic = useAxiosPublic()
 
@@ -49,7 +52,8 @@ const AddAnEmployee = () => {
             birthDay: data.birthDay,
             role: data.role,
             companyName: databaseUser?.companyName,
-            photoURL: data.photoURL
+            photoURL: data.photoURL,
+            companyLogo:databaseUser.companyLogo
 
 
 
@@ -79,7 +83,9 @@ const AddAnEmployee = () => {
                     companyName:databaseUser.companyName,
                     role:databaseUser.role,
                     photoURL:databaseUser.photoURL,
-                    package:data.package
+                    package:data.package,
+                    companyLogo:databaseUser.companyLogo
+                    
         }
         const res= await axiosPublic.patch(`/users/${databaseUser.email}`, updatedInfo)
         if(res.data.modifiedCount>0){

@@ -6,7 +6,10 @@ import { AuthContext } from "../../ContextApi/AuthProvider";
 import { signInWithPopup } from "firebase/auth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useUser from "../../hooks/useUser";
-// import useAdmin from "../../hooks/useAdmin";
+import { FcGoogle } from "react-icons/fc";
+import useAdmin from "../../hooks/useAdmin";
+
+
 
 
 
@@ -15,6 +18,7 @@ import useUser from "../../hooks/useUser";
 const LogIn = () => {
     const axiosPublic = useAxiosPublic()
     const [ , refetch] = useUser()
+    const[isAdmin]=useAdmin()
     console.log("Type of refetch:", typeof refetch, refetch)
     // const [isAdmin]= useAdmin()
 
@@ -88,7 +92,7 @@ const LogIn = () => {
                
                 e.target.reset()
                
-                navigate('/dashboard/home')
+                isAdmin? navigate('/dashboard/home'): navigate('/dashboard/employeeHome')
                 
 
             })
@@ -138,7 +142,7 @@ const LogIn = () => {
 
 
                                 </div>
-                                <p className="text-center my-5 text-white font-bold">Sign in with <button onClick={handleGoogleSignin} className="btn bg-[#175f82] text-white font-bold">Google</button></p>
+                                <p className="text-center my-5 text-white text-xl font-bold">Sign in with <button onClick={handleGoogleSignin} className="btn bg-[#175f82] text-white text-3xl font-bold"><FcGoogle></FcGoogle></button></p>
                             </div>
 
                         </form>

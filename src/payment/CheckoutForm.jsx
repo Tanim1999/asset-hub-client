@@ -120,7 +120,7 @@ const CheckoutForm = () => {
                         timer: 1500
                     });
                   refetch()
-                  navigate("/dashboard/home")
+                  navigate("/dashboard/adminHome")
                 }
 
             }

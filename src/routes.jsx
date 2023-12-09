@@ -9,7 +9,7 @@ import JoinEmployee from "./Pages/Home/Join/joinEmployee";
 import LogIn from "./Pages/Login/LogIn";
 import PrivateRoute from "./Routes/PrivateRoute";
 import AdminMain from "./Admin/AdminMain";
-import DashboardHome from "./Admin/DashboardHome";
+
 import AddAnAsset from "./Admin/AddAnAsset";
 import AddAnEmployee from "./Admin/AddAnEmployee";
 
@@ -28,6 +28,8 @@ import UpdateAsset from "./Admin/UpdateAsset";
 import AdminRoute from "./Routes/AdminRoute";
 import Payment from "./payment/Payment";
 import AdminProfile from "./Admin/adminProfile";
+import EmployeeHome from "./Employee/EmployeeHome";
+import AdminHome from "./Admin/AdminHome";
 
 
 
@@ -61,12 +63,12 @@ import AdminProfile from "./Admin/adminProfile";
       children: [
         // Admin user routes
         {
-          path: 'home',
-          element: <DashboardHome></DashboardHome>
+          path: 'adminHome',
+          element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
         },
         {
           path: 'payment',
-          element: <AdminRoute><Payment></Payment></AdminRoute>
+          element: <Payment></Payment>
         },
         {
           path: 'addAnAsset',
@@ -107,6 +109,10 @@ import AdminProfile from "./Admin/adminProfile";
         
         
         {
+          path: 'employeeHome',
+          element: <EmployeeHome></EmployeeHome>
+        },
+        {
           path: 'myAssets',
           element: <EmployeeMyAssets></EmployeeMyAssets>
         },
@@ -126,6 +132,8 @@ import AdminProfile from "./Admin/adminProfile";
           path: 'reqForAsset',
           element: <RequestForAnAsset></RequestForAnAsset>
         },
+        
+        
       ]
 
     },

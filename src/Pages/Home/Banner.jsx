@@ -7,7 +7,7 @@ const Banner = () => {
         <div>
             <Carousel autoPlay={true} infiniteLoop={true} interval={3000} transitionTime={500}>
                 <div>
-                    <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://i.ibb.co/1fVKtM4/banner01.jpg)' }}>
+                    <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://i.ibb.co/G5swknH/be28bece-9ed2-4e5d-8454-257f4facc332.jpg)' }}>
                         <div className="hero-overlay bg-opacity-60"></div>
                         <div className="hero-content text-center text-neutral-content">
                             <div className="max-w-md">
@@ -20,7 +20,7 @@ const Banner = () => {
                     
                 </div>
                 <div>
-                    <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://i.ibb.co/VgwMLTy/banner02.jpg)' }}>
+                    <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://i.ibb.co/G5swknH/be28bece-9ed2-4e5d-8454-257f4facc332.jpg)' }}>
                         <div className="hero-overlay bg-opacity-60"></div>
                         <div className="hero-content text-center text-neutral-content">
                             <div className="max-w-md">

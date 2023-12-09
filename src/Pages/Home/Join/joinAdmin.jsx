@@ -56,12 +56,14 @@ const JoinAdmin = () => {
         if (dbResponse.data.insertedId) {
             console.log('User added to the database');
             reset();
+            navigate('/dashboard/payment');
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
                 title: 'User created successfully.',
                 showConfirmButton: false,
                 timer: 1500
+
             });
             navigate('/dashboard/payment');
         } else {
@@ -76,7 +78,7 @@ return (
     <div className=" min-h-screen mx-auto">
         <Helmet><title>join admin</title></Helmet>
         <div>
-            <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://i.ibb.co/tcd4KVH/login.jpg)' }}>
+            <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://i.ibb.co/3dX8LzF/9bc4cac0-d695-4c1c-94e7-93d54c4f40a5.jpg)' }}>
                 <div className="hero-content flex-col lg:flex-row">
 
                     <form onSubmit={handleSubmit(onSubmit)} >

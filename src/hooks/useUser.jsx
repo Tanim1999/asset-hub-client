@@ -28,7 +28,7 @@ const useUser = () => {
     
     isPending&& console.log('loading')
     
-    return [databaseUser,refetch]
+    return [databaseUser,refetch,isPending]
 
 
 };

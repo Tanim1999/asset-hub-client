@@ -48,7 +48,7 @@ const MakeCustomRequest = () => {
             nameOfRequester:databaseUser.name,
             companyName: databaseUser.companyName,
             status:"pending",
-            requestDate: new Date().toString()
+            requestDate: new Date().toISOString()
 
 
 

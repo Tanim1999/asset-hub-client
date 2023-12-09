@@ -14,7 +14,7 @@ import Swal from "sweetalert2";
 const AllRequest = () => {
     const axiosPublic = useAxiosPublic()
     const [databaseUser] = useUser()
-    const [requestStatus,refetch] = useRequestsStatus()
+    const [requestStatus, refetch] = useRequestsStatus()
 
 
 
@@ -39,11 +39,16 @@ const AllRequest = () => {
         setSearch(searchText)
     }
 
-    const handleApprove = id => {
+    const handleApprove = (id,productName,productType,quantity,assetId) => {
         console.log(id)
-        const updatedInfo={
-            status:"approved",
+        const updatedInfo = {
+            status: "approved",
             actionDate: new Date().toISOString()
+        }
+        const assetInfo = {
+            productNAme: productName,
+            productType: productType,
+            quantity: quantity-1,
         }
         Swal.fire({
             title: "Are you sure?",
@@ -53,27 +58,26 @@ const AllRequest = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes approve"
-        }).then((result) => {
+        }).then(async(result) => {
             if (result.isConfirmed) {
+            const asset=  await  axiosPublic.patch(`/assets/${assetId}`,assetInfo)
 
-                axiosPublic.patch(`/requests/${id}`,updatedInfo)
-                    .then(res => {
-                        if (res.data.modifiedCount > 0) {
-                            refetch();
-                            Swal.fire({
-                                title: "Approved",
-                                text: "Request approved.",
-                                icon: "success"
-                            });
-                        }
-                    })
+            const request= await    axiosPublic.patch(`/requests/${id}`, updatedInfo)
+            if (asset.data.modifiedCount > 0 && request.data.modifiedCount>0) {
+                refetch();
+                Swal.fire({
+                    title: "Approved",
+                    text: "Request approved.",
+                    icon: "success"
+                });
+            }
             }
         });
     }
-    const handleReject = id => {
+    const handleReject = (id) => {
         console.log(id)
-        const updatedInfo={
-            status:"rejected",
+        const updatedInfo = {
+            status: "rejected",
             actionDate: new Date().toISOString()
         }
         Swal.fire({
@@ -87,9 +91,9 @@ const AllRequest = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                axiosPublic.patch(`/requests/${id}`,updatedInfo)
+                axiosPublic.patch(`/requests/${id}`, updatedInfo)
                     .then(res => {
-                        if (res.data.modifiedCount> 0) {
+                        if (res.data.modifiedCount > 0) {
                             refetch();
                             Swal.fire({
                                 title: "Rejected!",
@@ -152,7 +156,7 @@ const AllRequest = () => {
                                         <button
                                             className="btn"
 
-                                         onClick={()=>handleApprove(item._id)}
+                                            onClick={() => handleApprove(item._id,item.assetName,item.assetType,item.quantity,item.assetId)}
 
                                         >
                                             Approve
@@ -163,7 +167,7 @@ const AllRequest = () => {
                                     <th>
                                         <button
                                             className="btn"
-                                          onClick= {()=>handleReject(item._id)}
+                                            onClick={() => handleReject(item._id)}
                                         >
                                             Reject
                                         </button>

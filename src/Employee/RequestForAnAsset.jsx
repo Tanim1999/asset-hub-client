@@ -49,7 +49,9 @@ const RequestForAnAsset = () => {
                 requestDate: new Date().toISOString(), 
                 additionalNote: data.reason,
                 companyName: databaseUser.companyName,
-                status: "pending"
+                status: "pending",
+                quantity:data.quantity,
+                assetId: selectedAsset._id
             };
 
             
@@ -147,6 +149,18 @@ const RequestForAnAsset = () => {
                             {...register('productType')}
                             readOnly
                             defaultValue={selectedAsset?.productType}
+                        />
+                    </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text text-[#175f82] font-bold">Available</span>
+                        </label>
+                        <input
+                            type='number'
+                            name="quantity"
+                            {...register('quantity')}
+                            readOnly
+                            defaultValue={selectedAsset?.quantity}
                         />
                     </div>
                     <div className="form-control my-5">
