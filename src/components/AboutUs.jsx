@@ -5,7 +5,7 @@ import { Carousel } from 'react-responsive-carousel';
 const AboutUs = () => {
     return (
         <div>
-            <h2 className=" text-[#175f82] text-3xl my-5 font-bold text-center ">About us</h2>
+            <h2 className="  text-3xl my-5 font-bold text-center ">About us</h2>
             <Carousel autoPlay={true} infiniteLoop={true} transitionTime={500} interval={3000}>
                 <div>
                     <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://i.ibb.co/1fVKtM4/banner01.jpg)' }}>
