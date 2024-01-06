@@ -3,13 +3,17 @@ import { useForm } from "react-hook-form";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+// import useReqID from "../hooks/useReqId";
 
 
 
 const UpdateAsset = () => {
   const  {productNAme,quantity,_id}=useLoaderData()
+//   const [request,reReqId]= useReqID()
   const axiosPublic= useAxiosPublic()
   const navigate= useNavigate()
+
+
 
     const {
         register,
@@ -22,7 +26,11 @@ const UpdateAsset = () => {
     const onSubmit = async (data) => {
         console.log(data)
         
-        
+        // const updatedInfo = {
+        //     status: "approved",
+        //     actionDate: new Date().toISOString(),
+        //     quantity: quantity - 1
+        // }
             
             const assetItem = {
                 productNAme: data.productName,

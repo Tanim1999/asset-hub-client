@@ -8,7 +8,7 @@ const useReqOfUser = () => {
     
     const axiosPublic = useAxiosPublic();
    
-    const {data: reqOfUser = [], refetch,isPending} = useQuery({
+    const {data: reqOfUser = [], refetch:reReq,isPending} = useQuery({
         queryKey: ['reqOfUser'], 
         queryFn: async() =>{
             const res = await axiosPublic.get(`requests/?companyName=${databaseUser.companyName}&emailOfRequester=${databaseUser.email}`);
@@ -17,7 +17,7 @@ const useReqOfUser = () => {
     })
 
 
-    return [reqOfUser,  refetch,isPending]
+    return [reqOfUser,  reReq,isPending]
 };
 
 export default useReqOfUser;

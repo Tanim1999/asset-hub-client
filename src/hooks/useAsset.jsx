@@ -10,10 +10,13 @@ const useAsset = (id) => {
    
     const {data: asset = [], isPending: loading, refetch:reAsset} = useQuery({
         queryKey: ['asset','id'], 
+        enabled: id!==null,
         queryFn: async() =>{
             const res = await axiosPublic.get(`/assets/${id}`);
             return res.data;
+            
         }
+        
     })
 
 

@@ -1,58 +1,19 @@
-
-import { useState } from "react";
-import { FaSearch } from "react-icons/fa";
-import useAxiosPublic from "../hooks/useAxiosPublic";
-// import useUser from "../hooks/useUser";
-
-// import Swal from "sweetalert2";
-
-
-// import useRequestsStatus from "../hooks/useRequestStatus";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+import useRequestsStatus from "../hooks/useRequestStatus";
 import useReqOfUser from "../hooks/useReqOfUser";
-import useRequests from "../hooks/useRequests";
-const AllRequest = () => {
+
+
+
+const PendingReq = () => {
     const axiosPublic = useAxiosPublic()
-    // const [databaseUser] = useUser()
-    // const [requestStatus, refetch] = useRequestsStatus()
-    const [, reReq,] = useReqOfUser()
+    const [requestStatus,refetch]= useRequestsStatus()
+    const [,reReq,] = useReqOfUser()
+     
+    const fiveReq= requestStatus.slice(0,5)
 
-
-
-    // const [request, setRequest] = useState([])
-
-    const [search, setSearch] = useState('')
-    
-    
-
-    const [requests, , reRequests] = useRequests(search)
-
-
-    // useEffect(() => {
-    //     axiosPublic.get(`/requests?companyName=${databaseUser.companyName}&status=pending&search=${search}`)
-    //         .then(res => setRequest(res.data))
-
-    // }, [search, databaseUser, axiosPublic, requestStatus])
-    console.log("data of requests", requests)
-
-
-
-    const handleSearch = (e) => {
-        e.preventDefault()
-        const searchText = e.target.search.value
-        console.log(searchText)
-        setSearch(searchText)
-        reRequests()
-    }
-
-    const handleApprove = (id, productName, productType, quantity, assetId) => {
-       
-        console.log("jekhane click korecho", id, productName, quantity)
-        
-
-
-        console.log("quantity", quantity)
-        
+    const handleApprove = (id,productName,productType,quantity,assetId) => {
+        console.log(id)
         const updatedInfo = {
             status: "approved",
             actionDate: new Date().toISOString(),
@@ -61,7 +22,7 @@ const AllRequest = () => {
         const assetInfo = {
             productNAme: productName,
             productType: productType,
-            
+            quantity: quantity-1,
         }
         Swal.fire({
             title: "Are you sure?",
@@ -71,25 +32,23 @@ const AllRequest = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes approve"
-        }).then(async (result) => {
+        }).then(async(result) => {
             if (result.isConfirmed) {
-                const asset = await axiosPublic.patch(`/assets/${assetId}?operation=decrement`, assetInfo)
+            const asset=  await  axiosPublic.patch(`/assets/${assetId}`,assetInfo)
 
-                const request = await axiosPublic.patch(`/requests/${id}`, updatedInfo)
-                if (asset.data.modifiedCount > 0 && request.data.modifiedCount > 0) {
-                    reRequests();
-                    reReq();
-                    Swal.fire({
-                        title: "Approved",
-                        text: "Request approved.",
-                        icon: "success"
-                    });
-                }
+            const request= await    axiosPublic.patch(`/requests/${id}`, updatedInfo)
+            if (asset.data.modifiedCount > 0 && request.data.modifiedCount>0) {
+                refetch();
+                reReq();
+                Swal.fire({
+                    title: "Approved",
+                    text: "Request approved.",
+                    icon: "success"
+                });
             }
-         
+            }
         });
     }
-    
     const handleReject = (id) => {
         console.log(id)
         const updatedInfo = {
@@ -110,7 +69,7 @@ const AllRequest = () => {
                 axiosPublic.patch(`/requests/${id}`, updatedInfo)
                     .then(res => {
                         if (res.data.modifiedCount > 0) {
-                            reRequests();
+                            refetch();
                             Swal.fire({
                                 title: "Rejected!",
                                 text: "Request rejected.",
@@ -121,20 +80,10 @@ const AllRequest = () => {
             }
         });
     }
-
-
-
-
-
-
     return (
         <div>
-            <form onSubmit={handleSearch}>
-                <div className="flex">
-                    <input type="text" name="search" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
-                    <button className="btn font-bold bg-cyan-700 text-white" type="submit"><FaSearch></FaSearch></button>
-                </div>
-                <div className="overflow-x-auto">
+            <h2 className="text-3xl font-bold text-center mb-5"> Pending Requests</h2>
+            <div className="overflow-x-auto">
                     <table className="table max-w-[70%]">
                         <thead className='bg-[#175f82] text-white text-center'>
                             <tr>
@@ -154,7 +103,7 @@ const AllRequest = () => {
                             </tr>
                         </thead>
                         <tbody className="text-center">
-                            {requests.map((item, index) => (
+                            {fiveReq.map((item, index) => (
                                 <tr key={item._id}>
                                     <th>{index + 1}</th>
                                     <td>{item.assetName}</td>
@@ -172,7 +121,7 @@ const AllRequest = () => {
                                         <button
                                             className="btn"
 
-                                            onClick={() => handleApprove(item._id, item.assetName, item.assetType, item.quantity, item.assetId)}
+                                            onClick={() => handleApprove(item._id,item.assetName,item.assetType,item.quantity,item.assetId)}
 
                                         >
                                             Approve
@@ -193,10 +142,8 @@ const AllRequest = () => {
                         </tbody>
                     </table>
                 </div>
-            </form>
-
         </div>
     );
 };
 
-export default AllRequest;
+export default PendingReq;

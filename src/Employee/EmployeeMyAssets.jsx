@@ -14,7 +14,7 @@ import useAsset from "../hooks/useAsset";
 
 const EmployeeMyAssets = () => {
     const [databaseUser] = useUser();
-    const [reqOfUser,refetch,isPending] = useReqOfUser()
+    const [reqOfUser,reReq,isPending] = useReqOfUser()
     const axiosPublic = useAxiosPublic()
 
     const [assId,setAssId]=useState(null)
@@ -71,7 +71,7 @@ const EmployeeMyAssets = () => {
                 axiosPublic.delete(`/requests/${id}`)
                     .then(res => {
                         if (res.data.deletedCount > 0) {
-                            refetch();
+                            reReq();
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Your request is cancelled.",
@@ -91,7 +91,7 @@ const EmployeeMyAssets = () => {
       const assetInfo = {
         productNAme: item.assetName,
         productType: item.assetType,
-        quantity: parseInt(asset.quantity)+1,
+       
     }
     Swal.fire({
         title: "Are you sure?",
@@ -103,11 +103,11 @@ const EmployeeMyAssets = () => {
         confirmButtonText: "Yes Return"
     }).then(async(result) => {
         if (result.isConfirmed) {
-        const asset=  await  axiosPublic.patch(`/assets/${item.assetId}`,assetInfo)
+        const asset=  await  axiosPublic.patch(`/assets/${item.assetId}?operation=increment`,assetInfo)
 
         const request= await    axiosPublic.delete(`/requests/${item._id}`)
         if (asset.data.modifiedCount > 0 && request.data.deletedCount>0) {
-            refetch();
+            reReq();
             Swal.fire({
                 title: "Returned",
                 text: "Returned successfully.",

@@ -1,3 +1,4 @@
+import PendingReq from "../adminComponents/PendingReq";
 import useUser from "../hooks/useUser";
 
 
@@ -7,9 +8,9 @@ const AdminHome = () => {
         <div>
             
                 
-                   <p> {databaseUser.name} Welcome back </p>
+                   <p className=" text-3xl font-bold my-10 "> {databaseUser.name}, Welcome back </p>
                 
-            
+             <PendingReq></PendingReq>
                 
                 
                 

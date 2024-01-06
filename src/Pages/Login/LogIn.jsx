@@ -40,7 +40,7 @@ const LogIn = () => {
                     role:"employee"
                 }
                 axiosPublic.post('/users', userInfo)
-              
+                isAdmin? navigate('/dashboard/adminHome'): navigate('/dashboard/employeeHome')
                 refetch()
                 Swal.fire({
                     title: 'Success!',
@@ -92,7 +92,7 @@ const LogIn = () => {
                
                 e.target.reset()
                
-                isAdmin? navigate('/dashboard/home'): navigate('/dashboard/employeeHome')
+                isAdmin? navigate('/dashboard/adminHome'): navigate('/dashboard/employeeHome')
                 
 
             })
