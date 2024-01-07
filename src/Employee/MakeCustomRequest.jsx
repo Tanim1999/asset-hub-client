@@ -83,13 +83,13 @@ const MakeCustomRequest = () => {
                 <>
                     <Helmet><title>Make customReq</title></Helmet>
                     <div>
-                        <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://i.ibb.co/tcd4KVH/login.jpg)' }}>
+                        <div className="hero max-w-fit rounded-xl my-5" style={{ backgroundImage: 'url(https://i.ibb.co/7J3WL8j/208a834b-4fb7-4051-be24-341e1a1ef9a0.jpg)' }}>
                             <div className="hero-content flex-col lg:flex-row">
 
                                 <form onSubmit={handleSubmit(onSubmit)} >
                                     <div className="card flex-shrink-0 w-96 border-[2px] bg-black bg-opacity-40 shadow-none border-slate-500    ">
                                         <div className="card-body">
-                                            <h1 className="text-3xl text-center text-white font-bold">Add an asset</h1>
+                                            <h1 className="text-3xl text-center text-white font-bold">Make custom request</h1>
 
                                             <div className="form-control">
                                                 <label className="label">
@@ -148,7 +148,7 @@ const MakeCustomRequest = () => {
 
 
                                             <div className="form-control mt-6">
-                                                <button type=' submit' className="btn text-white bg-[#175f82]">Request</button>
+                                                <button type=' submit' className="btn text-white bg-[#43ACFF]">Request</button>
                                             </div>
                                             <br />
 

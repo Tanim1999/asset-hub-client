@@ -12,8 +12,8 @@ const AdminStats = () => {
     const [assets]= useAssets()
 
     return (
-        <div className="my-5">
-            <div className="stats shadow">
+        <div className="my-5 max-w-fit mx-auto">
+            <div className="stats shadow bg-[#00B6FF] ">
 
                 <div className="stat">
                     <div className="stat-figure text-primary">
@@ -21,7 +21,7 @@ const AdminStats = () => {
 
                         
                     </div>
-                    <div className="stat-title">Total Requests</div>
+                    <div className="stat-title text-black font-bold">Total Requests</div>
                     <div className="stat-value text-primary">{requests.length}</div>
                     
                 </div>
@@ -31,18 +31,18 @@ const AdminStats = () => {
                     <FaUser />
 
                     </div>
-                    <div className="stat-title">Team members</div>
+                    <div className="stat-title text-black font-bold">Team members</div>
                     <div className="stat-value text-secondary">{teamMembers.length}</div>
                     
                 </div>
                 <div className="stat">
-                    <div className="stat-figure text-cyan-600">
+                    <div className="stat-figure text-[#56e22f]">
                     <MdOutlineWebAsset />
 
 
                     </div>
-                    <div className="stat-title">Total assets</div>
-                    <div className="stat-value text-cyan-600">{assets.length}</div>
+                    <div className="stat-title text-black font-bold">Total assets</div>
+                    <div className="stat-value text-[#56e22f]">{assets.length}</div>
                     
                 </div>
 

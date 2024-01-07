@@ -8,6 +8,7 @@ import useReqOfUser from "../hooks/useReqOfUser";
 import useUser from "../hooks/useUser";
 import { useState } from "react";
 import useAsset from "../hooks/useAsset";
+import moment from "moment";
 
 
 
@@ -161,8 +162,9 @@ const EmployeeMyAssets = () => {
                                             <th>{index + 1}</th>
                                             <td>{item?.assetName}</td>
                                             <td>{item?.assetType}</td>
-                                            <td>{item.requestDate}</td>
-                                            <td>{item?.actionDate}</td>
+                                            <td>{moment(item?.requestDate).format('MMMM Do YYYY, h:mm:ss a')}</td>
+                                            {item.actionDate? <td>{moment(item?.actionDate).format('MMMM Do YYYY, h:mm:ss a')}</td>: <td>Waiting for response</td>}
+                                            
                                             <td>{item?.status}</td>
 
 

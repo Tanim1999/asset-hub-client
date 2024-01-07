@@ -116,7 +116,7 @@ const LogIn = () => {
         <div className=" min-h-screen">
             <Helmet><title>Login</title></Helmet>
             <div>
-                <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://i.ibb.co/tcd4KVH/login.jpg)' }}>
+                <div className="hero min-h-screen bg-contain" style={{ backgroundImage: 'url(https://i.ibb.co/3dX8LzF/9bc4cac0-d695-4c1c-94e7-93d54c4f40a5.jpg)' }}>
                     <div className="hero-content flex-col lg:flex-row">
 
                         <form onSubmit={handleLoginSubmit} >

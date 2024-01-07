@@ -39,7 +39,7 @@ const AdminNavbar = () => {
 
                 </li>
                 <li>
-                    <button onClick={handleLogout} className="btn text-white bg-[#175f82]">Logout</button>
+                    <button onClick={handleLogout} className="btn text-white bg-[#43ACFF]">Logout</button>
 
                 </li>
 
@@ -53,7 +53,7 @@ const AdminNavbar = () => {
                 <li><NavLink to="/dashboard/makeCustomReq">MakeCustom request</NavLink></li>
                 <li><NavLink to="/dashboard/employeeProfile">Profile</NavLink></li>
                 <li><ThemeToggle></ThemeToggle></li>
-                <button onClick={handleLogout} className="btn text-white bg-[#175f82]">Logout</button>
+                <button onClick={handleLogout} className="btn text-white bg-[#43ACFF]">Logout</button>
                 <li></li>
 
 
