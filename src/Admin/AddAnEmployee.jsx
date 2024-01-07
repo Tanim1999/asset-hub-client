@@ -141,7 +141,12 @@ const AddAnEmployee = () => {
 
             </div>
             <h2 className='text-3xl text-[#175f82] font-bold text-center my-5'>Add an employee</h2>
-            <div className="overflow-x-auto">
+             {notInATeam.length==0?
+             <>
+             <p className=" text-2xl text-center font-bold">There is no employee to add</p> 
+             </>:
+             <>
+                 <div className="overflow-x-auto">
                 <table className="table w-full">
                     <thead className='bg-[#175f82] text-white'>
                         <tr>
@@ -196,6 +201,8 @@ const AddAnEmployee = () => {
                     </tbody>
                 </table>
             </div>
+             </>}
+           
 
 
 

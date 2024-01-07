@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 
 
 import useAssets from "../hooks/useAssets";
+import moment from "moment";
 
 
 const AssetList = () => {
@@ -72,9 +73,12 @@ const AssetList = () => {
 
 
     return (
-        <div>
+        <div className="my-5">
+            <div>
+                <h2 className=" text-cyan-700 text-3xl text-center font-bold my-5"> Asset list</h2>
+            </div>
             <form onSubmit={handleSearch}>
-                <div className="flex">
+                <div className="flex mb-5">
                     <input type="text" name="search" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
                     <button  className="btn font-bold bg-cyan-700 text-white" type="submit"><FaSearch></FaSearch></button>
                 </div>
@@ -99,7 +103,7 @@ const AssetList = () => {
                                 <td>{item.productNAme}</td>
                                 <td>{item.productType}</td>
                                 <td>{item.quantity}</td>
-                                <td>{item?.addedDate}</td>
+                                <td>{moment(item?.addedDate).format('MMMM Do YYYY, h:mm:ss a')}</td>
                                 
                             
                                 <th>

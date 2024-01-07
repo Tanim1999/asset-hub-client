@@ -22,7 +22,7 @@ const AdminNavbar = () => {
         databaseUser?.role === "admin" ?
         
             <>
-                <li><NavLink to="/dashboard/adminHome">home</NavLink></li>
+                <li><NavLink to="/dashboard/home">home</NavLink></li>
                 <li><NavLink to="/dashboard/myEmployee">My Employee List</NavLink></li>
                 <li><NavLink to="/dashboard/addAnEmployee">Add an employee</NavLink></li>
                 <li><NavLink to="/dashboard/assetList">Asset list</NavLink></li>
@@ -46,7 +46,7 @@ const AdminNavbar = () => {
 
             </>
             : <>
-                <li><NavLink to="/dashboard/employeeHome">home</NavLink></li>
+                <li><NavLink to="/dashboard/home">home</NavLink></li>
                 <li><NavLink to="/dashboard/employeeMyTeam">My Team</NavLink></li>
                 <li><NavLink to="/dashboard/myAssets">My Assets</NavLink></li>
                 <li><NavLink to="/dashboard/reqForAsset">Request for an Asset</NavLink></li>

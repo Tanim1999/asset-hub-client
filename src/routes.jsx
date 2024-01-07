@@ -28,7 +28,7 @@ import UpdateAsset from "./Admin/UpdateAsset";
 import AdminRoute from "./Routes/AdminRoute";
 import Payment from "./payment/Payment";
 import AdminProfile from "./Admin/adminProfile";
-import EmployeeHome from "./Employee/EmployeeHome";
+
 import AdminHome from "./Admin/AdminHome";
 
 
@@ -63,8 +63,8 @@ import AdminHome from "./Admin/AdminHome";
       children: [
         // Admin user routes
         {
-          path: 'adminHome',
-          element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
+          path: 'home',
+          element: <AdminHome></AdminHome>
         },
         {
           path: 'payment',
@@ -108,10 +108,7 @@ import AdminHome from "./Admin/AdminHome";
         // employee routes
         
         
-        {
-          path: 'employeeHome',
-          element: <EmployeeHome></EmployeeHome>
-        },
+        
         {
           path: 'myAssets',
           element: <EmployeeMyAssets></EmployeeMyAssets>

@@ -11,6 +11,7 @@ import useAxiosPublic from "../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import useReqOfUser from "../hooks/useReqOfUser";
 import useRequests from "../hooks/useRequests";
+import moment from "moment";
 const AllRequest = () => {
     const axiosPublic = useAxiosPublic()
     // const [databaseUser] = useUser()
@@ -22,8 +23,8 @@ const AllRequest = () => {
     // const [request, setRequest] = useState([])
 
     const [search, setSearch] = useState('')
-    
-    
+
+
 
     const [requests, , reRequests] = useRequests(search)
 
@@ -46,13 +47,13 @@ const AllRequest = () => {
     }
 
     const handleApprove = (id, productName, productType, quantity, assetId) => {
-       
+
         console.log("jekhane click korecho", id, productName, quantity)
-        
+
 
 
         console.log("quantity", quantity)
-        
+
         const updatedInfo = {
             status: "approved",
             actionDate: new Date().toISOString(),
@@ -61,7 +62,7 @@ const AllRequest = () => {
         const assetInfo = {
             productNAme: productName,
             productType: productType,
-            
+
         }
         Swal.fire({
             title: "Are you sure?",
@@ -86,10 +87,10 @@ const AllRequest = () => {
                     });
                 }
             }
-         
+
         });
     }
-    
+
     const handleReject = (id) => {
         console.log(id)
         const updatedInfo = {
@@ -128,72 +129,90 @@ const AllRequest = () => {
 
 
     return (
-        <div>
-            <form onSubmit={handleSearch}>
-                <div className="flex">
-                    <input type="text" name="search" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
-                    <button className="btn font-bold bg-cyan-700 text-white" type="submit"><FaSearch></FaSearch></button>
-                </div>
-                <div className="overflow-x-auto">
-                    <table className="table max-w-[70%]">
-                        <thead className='bg-[#175f82] text-white text-center'>
-                            <tr>
-                                <th>#</th>
-                                <th>Asset name</th>
-                                <th>Asset Type</th>
-                                <th>Email</th>
-                                <th>Name</th>
-                                <th>Request Date</th>
-                                <th>Additional note</th>
-                                <th>Status</th>
+        <div className="mx-5">
+            <div>
+
+                <h2 className=" text-3xl text-cyan-700 font-bold text-center my-5">
+                    All requests
+                </h2>
+            </div>
+            {requests.length == 0 ?
+                <>
+                    <div role="alert" className="alert alert-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <p className=" text-2xl font-bold text-center">There is no request</p>
+
+                    </div>
+                    
+                </> :
+                <>
+                    <form onSubmit={handleSearch}>
+                        <div className="flex my-5">
+                            <input type="text" name="search" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
+                            <button className="btn font-bold bg-cyan-700 text-white" type="submit"><FaSearch></FaSearch></button>
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="table max-w-[70%]">
+                                <thead className='bg-[#175f82] text-white text-center'>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Asset name</th>
+                                        <th>Asset Type</th>
+                                        <th>Email</th>
+                                        <th>Name</th>
+                                        <th>Request Date</th>
+                                        <th>Additional note</th>
+                                        <th>Status</th>
 
 
 
-                                <th>Approve</th>
-                                <th>Reject</th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-center">
-                            {requests.map((item, index) => (
-                                <tr key={item._id}>
-                                    <th>{index + 1}</th>
-                                    <td>{item.assetName}</td>
-                                    <td>{item.assetType}</td>
-                                    <td>{item.emailOfRequester}</td>
-                                    <td>{item.nameOfRequester}</td>
-                                    <td>{item?.requestDate}</td>
-                                    <td>{item?.additionalNote}</td>
+                                        <th>Approve</th>
+                                        <th>Reject</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="text-center">
+                                    {requests.map((item, index) => (
+                                        <tr key={item._id}>
+                                            <th>{index + 1}</th>
+                                            <td>{item.assetName}</td>
+                                            <td>{item.assetType}</td>
+                                            <td>{item.emailOfRequester}</td>
+                                            <td>{item.nameOfRequester}</td>
+                                            <td>{moment(item?.requestDate).format('MMMM Do YYYY, h:mm:ss a')}</td>
+                                            <td>{item?.additionalNote}</td>
 
 
 
-                                    <th>Pending</th>
-                                    <th>
+                                            <th>Pending</th>
+                                            <th>
 
-                                        <button
-                                            className="btn"
+                                                <button
+                                                    className="btn"
 
-                                            onClick={() => handleApprove(item._id, item.assetName, item.assetType, item.quantity, item.assetId)}
+                                                    onClick={() => handleApprove(item._id, item.assetName, item.assetType, item.quantity, item.assetId)}
 
-                                        >
-                                            Approve
-                                        </button>
+                                                >
+                                                    Approve
+                                                </button>
 
 
-                                    </th>
-                                    <th>
-                                        <button
-                                            className="btn"
-                                            onClick={() => handleReject(item._id)}
-                                        >
-                                            Reject
-                                        </button>
-                                    </th>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </form>
+                                            </th>
+                                            <th>
+                                                <button
+                                                    className="btn"
+                                                    onClick={() => handleReject(item._id)}
+                                                >
+                                                    Reject
+                                                </button>
+                                            </th>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </>}
+
 
         </div>
     );

@@ -9,6 +9,7 @@ import useUser from "../hooks/useUser";
 
 import Swal from "sweetalert2";
 import useCustomReq from "../hooks/useCustomReq";
+import { Helmet } from "react-helmet-async";
 
 
 const CustomRequestList = () => {
@@ -109,6 +110,7 @@ const CustomRequestList = () => {
 
     return (
         <div>
+            <Helmet><title>Custom requests</title></Helmet>
             <form onSubmit={handleSearch}>
                 <div className="flex">
                     <input type="text" name="search" placeholder="Search" className="input input-bordered w-24 md:w-auto" />

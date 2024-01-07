@@ -7,7 +7,7 @@ import { signInWithPopup } from "firebase/auth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useUser from "../../hooks/useUser";
 import { FcGoogle } from "react-icons/fc";
-import useAdmin from "../../hooks/useAdmin";
+// import useAdmin from "../../hooks/useAdmin";
 
 
 
@@ -18,9 +18,9 @@ import useAdmin from "../../hooks/useAdmin";
 const LogIn = () => {
     const axiosPublic = useAxiosPublic()
     const [ , refetch] = useUser()
-    const[isAdmin]=useAdmin()
+    // const[isAdmin,isAdminLoading]=useAdmin()
     console.log("Type of refetch:", typeof refetch, refetch)
-    // const [isAdmin]= useAdmin()
+    
 
 
     const navigate = useNavigate()
@@ -40,7 +40,7 @@ const LogIn = () => {
                     role:"employee"
                 }
                 axiosPublic.post('/users', userInfo)
-                isAdmin? navigate('/dashboard/adminHome'): navigate('/dashboard/employeeHome')
+                 navigate('/dashboard/home')
                 refetch()
                 Swal.fire({
                     title: 'Success!',
@@ -81,6 +81,8 @@ const LogIn = () => {
 
             .then(result => {
                 refetch()
+                navigate('/dashboard/home')
+                
                 console.log(result.user)
                 Swal.fire({
                     title: 'Success!',
@@ -92,7 +94,7 @@ const LogIn = () => {
                
                 e.target.reset()
                
-                isAdmin? navigate('/dashboard/adminHome'): navigate('/dashboard/employeeHome')
+                
                 
 
             })
